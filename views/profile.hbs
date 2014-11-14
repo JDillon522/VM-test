@@ -1,31 +1,101 @@
 <script src="/javascripts/profile.js"></script>
-<h1>Welcome to {{school_name}}'s Profile</h1>
-{{#if logo_url}}
-  <img src="{{logo_url}}">
-{{else}}
-  <p>Logo Image Unavailable</p>
-{{/if}}
-<div class="addressData">
-  <p>Address: </p>
-  <p id="street1"></p>  
-  <p id="street2"></p>
-  <p id="city"></p>
-  <p id="state"></p>
-  <p id="zip"></p>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <h1>Welcome to {{school_name}}'s Profile</h1>
+  </div>
 </div>
 
-<p>Phone Number: {{phone_number}}</p>
-<p>Website: <a href="{{web_site}}">{{web_site}}</a></p>
-<p>Years Spent Being Military Friendly: {{military_friendly_years}}</p>
-<p>Average Rating: {{average_rating}}</p>
-<p>Undergraduate In­state Tuition: {{undergraduate_in_state_tuition}}</p>
-<p>Undergraduate Out of State Tuition: {{undergraduate_out_state_tuition}}</p>
-<p>Graduate In­state Tuition: {{graduate_in_state_tuition}}</p>
-<p>Graduate Out of State Tuition: {{graduate_out_state_tuition}}</p>
-<p class="id">{{id}}</p>
+<div class="row">
+  <div class="col-md-12">
+    <a class="btn btn-primary" role="button" href="/?offset={{back_button}}">
+      Go Back to List
+    </a>  
+  </div>
+</div>
 
+<div class="row">
+  <div class="col-md-6 col-sm-6">
+    {{#if logo_url}}
+      <img src="{{logo_url}}" class="img-responsive">
+    {{else}}
+      <img src="{{additional_image_urls_concat}}" class="img-responsive">
+    {{/if}}    
+  </div>
 
-<a class="btn btn-primary" role="button" href="/?offset={{back_button}}">
-  Go Back to List
-</a>
+  <div class="col-md-6 col-sm-6">
+    <h3>Contact Info:</h3>
+    <div class="addressData">
+      <dl>
+        <dt>
+          <span>Address: </span>
+        </dt>
+        <dl>
+          <ul class="list-unstyled">
+            <li><span id="street1"></span></li>
+            <li><span id="street2"></span></li>
+            <li><span id="city"></span>, <span id="state"></span> <span id="zip"></span></li>
+          </ul>
+        </dl>
+        <dt>Phone Number:</dt>
+        <dl>{{phone_number}}</dl>
+        <dt>Website:</dt>
+        <dl>
+           <a href="{{web_site}}">{{web_site}}</a>
+        </dl>
+      </dl>
+    </div>
 
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <h2>School Info:</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-sm-6">
+    <h4>Quick Stats:</h4>
+    <dl>
+      <dt>Years Spent Being Military Friendly:</dt>
+      <dl>{{military_friendly_years}}</dl>
+      <dt>Average Rating:</dt>
+      <dl>{{average_rating}}</dl>
+      <dt>Undergraduate In­state Tuition:</dt>
+      <dl>${{undergraduate_in_state_tuition}}</dl>
+      <dt>Undergraduate Out of State Tuition: </dt>
+      <dl>${{undergraduate_out_state_tuition}}</dl>
+      <dt>Graduate In­state Tuition: </dt>
+      <dl>${{graduate_in_state_tuition}}</dl>
+      <dt>Graduate Out of State Tuition: </dt>
+      <dl>${{graduate_out_state_tuition}}</dl>
+    </dl>
+  </div>
+  <div class="col-md-6 col-sm-6">
+    <h4>Description:</h4>
+    <p>{{description}}</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <h2>Veterans Info:</h2>
+    <p>{{veteran_benefits}}</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <a class="btn btn-primary" role="button" href="/?offset={{back_button}}">
+      Go Back to List
+    </a>  
+  </div>
+</div>
+
+<div class="row studentReviews">
+  <h2>Student Reviews:</h2>
+</div>
+
+<input type="hidden" value="{{id}}" class="id">

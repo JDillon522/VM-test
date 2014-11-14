@@ -17,15 +17,15 @@ router.get('/', function(req, res, next) {
     }
     
     try {
-      body = JSON.parse(body);
-      tryFail = false;
+      body = JSON.parse(body);      
       data = formatData(body, req.query.offset);
+      tryFail = false;
     } catch (e) {
       // Try catch fails silently. No bueno.
     }
 
     if (tryFail) {
-      return res.status(400).end();
+      return next();
     } else {
       return res.render('index', data);
     }
@@ -71,7 +71,9 @@ function formatData(data, offset) {
 
   // Add offset to each school to populate profile page back button
   _.each(finalBody, function(value, key) {
-    finalBody[key].back_button = offset;
+    if (finalBody[key]) {
+      finalBody[key].back_button = offset;
+    }    
   });
 
   // add offsets and pagination 
@@ -97,7 +99,7 @@ function formatData(data, offset) {
   });
 
   finalData.schools = finalBody;
-  
+
   return finalData;
 }
 
