@@ -4,24 +4,12 @@ var request = require('request');
 var _ = require('lodash');
 var apiPath = require('../lib/helpers').apiPath;
 
-var filterInactive = function(data) {
-  var newBody = [];
-  
-  _.each(data, function(value, key) {
-    if (value.active === true) {
-      newBody.push(value);
-    }
-  });
-
-  return newBody;
-};
-
-router.get('/', function(req, res) {
-
+router.get('/', function(req, res, next) {
   request({
     uri: apiPath + 'online'
   }, function(error, response, body) {
     var tryFail = true;
+    var data;
 
     if (error) { 
       console.log('ERROR: ', error);
@@ -31,19 +19,72 @@ router.get('/', function(req, res) {
     try {
       body = JSON.parse(body);
       tryFail = false;
-      body = filterInactive(body);
+      data = formatData(body, req.query.offset);
     } catch (e) {
       // Try catch fails silently. No bueno.
     }
-    
-
 
     if (tryFail) {
-      return res.send(400);
+      return res.status(400).end();
     } else {
-      return res.render('index', { title: 'Express', data: body});
+      return res.render('index', data);
     }
   });
 });
+
+function formatData(data, offset) {
+  var activeBody = [];
+  var finalBody = [];
+  var page = 1;
+  var pageOffset = 0;
+  var finalData = {};
+
+  finalData.pagination = [];
+
+  if (!offset) {
+    offset = 0;
+  } else {
+    offset = parseInt(offset, 10);
+  }
+
+  // Filter out non active schools
+  _.each(data, function(value, key) {
+    if (value.active === true) {
+      activeBody.push(value);
+    }
+  });
+  
+  // Sort alphabetically 
+  activeBody = activeBody.sort(function(a, b){
+    if (a.school_name < b.school_name) { return -1; }
+    if (a.school_name > b.school_name) { return 1; }
+    return 0;
+  });
+
+  // Total schools
+  finalData.count = activeBody.length;
+
+  // Return correct paginated data
+  for (var i = offset; i <= offset + 10; i++) {
+    finalBody.push(activeBody[i]);
+  }
+
+  // add offsets and pagination 
+  _.each(activeBody, function(value, key) {
+    var set = {};
+    if (key % 10 === 0) {
+      set.page = page;
+      set.offset = pageOffset;
+      finalData.pagination.push(set);
+      // Increment counters
+      page ++;
+      pageOffset += 10;
+    }
+  });
+
+  finalData.schools = finalBody;
+  
+  return finalData;
+}
 
 module.exports = router;
