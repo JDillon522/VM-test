@@ -69,13 +69,27 @@ function formatData(data, offset) {
     finalBody.push(activeBody[i]);
   }
 
+  // Add offset to each school to populate profile page back button
+  _.each(finalBody, function(value, key) {
+    finalBody[key].back_button = offset;
+  });
+
   // add offsets and pagination 
   _.each(activeBody, function(value, key) {
     var set = {};
     if (key % 10 === 0) {
       set.page = page;
       set.offset = pageOffset;
+      
+      // Set active class
+      if (set.offset === offset) {
+        set.active = true;
+      } else {
+        set.active = false;
+      }
+    
       finalData.pagination.push(set);
+
       // Increment counters
       page ++;
       pageOffset += 10;

@@ -15,7 +15,11 @@
     {{#each schools}}
       {{#if school_name}}
         <tr>
-          <td><a href="/profile/{{nice_name}}/{{id}}">{{school_name}}</a></td>
+          <td>
+            <a href="/profile/{{nice_name}}/{{id}}?offset={{back_button}}">
+              {{school_name}}
+            </a>
+          </td>
         </tr>
       {{/if}}
     {{/each}}
@@ -25,10 +29,12 @@
 
 <nav>
   <ul class="pagination">
-    <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
     {{#each pagination}}
-      <li><a href="/?offset={{offset}}">{{page}}</a></li>
+      {{#if active}}
+        <li class="active"><span>{{page}}</span></li>
+      {{else}}
+        <li><a href="/?offset={{offset}}">{{page}}</a></li>
+      {{/if}}
     {{/each}}
-    <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
   </ul>
 </nav>

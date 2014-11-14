@@ -19,6 +19,7 @@ router
       try {
         data = JSON.parse(body);
         tryFail = false;
+        data.back_button = req.query.offset;
       } catch (e) {
         // Try catch fails silently. No bueno.
       }
