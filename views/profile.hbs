@@ -1,15 +1,19 @@
+<script src="/javascripts/profile.js"></script>
 <h1>Welcome to {{school_name}}'s Profile</h1>
 {{#if logo_url}}
   <img src="{{logo_url}}">
 {{else}}
   <p>Logo Image Unavailable</p>
 {{/if}}
-<p>Address: 
-  {{#if address}}
-    {{address}}</p>
-  {{else}}
-    {{display_address}}</p>
-  {{/if}}
+<div class="addressData">
+  <p>Address: </p>
+  <p id="street1"></p>  
+  <p id="street2"></p>
+  <p id="city"></p>
+  <p id="state"></p>
+  <p id="zip"></p>
+</div>
+
 <p>Phone Number: {{phone_number}}</p>
 <p>Website: <a href="{{web_site}}">{{web_site}}</a></p>
 <p>Years Spent Being Military Friendly: {{military_friendly_years}}</p>
@@ -18,3 +22,4 @@
 <p>Undergraduate Out of State Tuition: {{undergraduate_out_state_tuition}}</p>
 <p>Graduate In­state Tuition: {{graduate_in_state_tuition}}</p>
 <p>Graduate Out of State Tuition: {{graduate_out_state_tuition}}</p>
+<p class="id">{{id}}</p>
