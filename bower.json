@@ -1,0 +1,19 @@
+{
+  "name": "victory",
+  "version": "0.0.0",
+  "authors": [
+    "Joseph <joseph.dillon.522@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": "~3.3.1"
+  }
+}
